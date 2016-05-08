@@ -2,7 +2,6 @@
 import urllib2
 import requests
 import argparse
-import json
 import wget
 
 def main():
