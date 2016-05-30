@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import urllib2
-import requests
 import argparse
 import wget
+import json
 
 def main():
     parser = argparse.ArgumentParser(description='Conversion de enlace Magnet a archivo .torrent');
@@ -20,11 +20,13 @@ def uToUTF(url):
     return utfStr;
 
 
+
 def toTorrent(magnetURL):
-    r = requests.get('http://magnet-to-torrent.com/magnet2torrent.php?magnet=' + magnetURL);
+    res = urllib2.urlopen('http://magnet-to-torrent.com/magnet2torrent.php?magnet=' + magnetURL);
     
-    torrentUrl = r.json();
-    return torrentUrl['url'];
+    resJson = json.loads(res.read());
+    print 'Response is: ' + res.read();
+    return resJson['url'];
 
 if __name__ == '__main__':
     main()
