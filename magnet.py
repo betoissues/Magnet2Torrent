@@ -7,8 +7,7 @@ import json
 def main():
     args = parseArgs();
 
-    magnet = uToUTF(args.magnet);
-    torrent = toTorrent(magnet);
+    torrent = toTorrent(args.magnet);
 
     file = wget.download(torrent);
 
@@ -19,7 +18,7 @@ def uToUTF(url):
 
 
 def toTorrent(magnetURL):
-    res = urllib2.urlopen('http://magnet-to-torrent.com/magnet2torrent.php?magnet=' + magnetURL);
+    res = urllib2.urlopen('http://magnet-to-torrent.com/magnet2torrent.php?magnet=' + uToUTF(magnetURL));
     
     resJson = json.loads(res.read());
     print 'Response is: ' + res.read();
