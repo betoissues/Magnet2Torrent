@@ -5,10 +5,7 @@ import wget
 import json
 
 def main():
-    parser = argparse.ArgumentParser(description='Conversion de enlace Magnet a archivo .torrent');
-    parser.add_argument('-m', '--magnet', help='Enlace magnet', required=True);
-
-    args = parser.parse_args();
+    args = parseArgs();
 
     magnet = uToUTF(args.magnet);
     torrent = toTorrent(magnet);
@@ -27,6 +24,12 @@ def toTorrent(magnetURL):
     resJson = json.loads(res.read());
     print 'Response is: ' + res.read();
     return resJson['url'];
+
+def parseArgs():
+    parser = argparse.ArgumentParser(description='Conversion de enlace Magnet a archivo .torrent');
+    parser.add_argument('-m', '--magnet', help='Enlace magnet', required=True);
+    return parser.parse_args();
+
 
 if __name__ == '__main__':
     main()
